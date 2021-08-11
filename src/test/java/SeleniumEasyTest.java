@@ -6,10 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import pages.BootstrapModalPage;
-import pages.HomePage;
-import pages.SelectDropdownPage;
-import pages.SimpleFormDemoPage;
+import pages.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -80,15 +77,9 @@ public class SeleniumEasyTest {
     @Test
     public void TestNameCards()
     {
-
-        /*
-         * Navigate to https://www.seleniumeasy.com/test/data-list-filter-demo.html page
-         * Write test to get names of name cards.
-         * Get the list of name cards and store Name values into a List. Compare the name list to an expected list is given in advance.
-         * Use the given variables to achieve successfully running test.
-         * */
-
-        List<String> result = null;
+        homePage.clickListBoxButton();
+        DataListFilterPage dataListFilterPage = homePage.clickDataListFilter();
+        List<String> result = dataListFilterPage.getNameCards();
         List<String> expected = new ArrayList<>();
         expected.add("Tyreese Burn");
         expected.add("Brenda Tree");
