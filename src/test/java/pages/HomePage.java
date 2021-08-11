@@ -18,12 +18,19 @@ public class HomePage {
     By BOOTSTRAP_MODALS = By.xpath("//li[@class='tree-branch']//a[normalize-space()='Bootstrap Modals']");
     By LIST_BOX_BUTTON = By.xpath("//li[@class='tree-branch']//a[normalize-space()='List Box']");
     By DATA_LIST_FILTER = By.xpath("//li[@class='tree-branch']//a[normalize-space()='Data List Filter']");
+    By TABLE_BUTTON = By.xpath("//li[@class='tree-branch']//a[normalize-space()='Table']");
+    By TABLE_DATA_DOWNLOAD = By.xpath("//li[@class='tree-branch']//a[normalize-space()='Table Data Download']");
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
 
-
+    public DataTableWithDownloadPage clickDataTable(){
+        wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(TABLE_DATA_DOWNLOAD));
+        driver.findElement(TABLE_DATA_DOWNLOAD).click();
+        return new DataTableWithDownloadPage(driver);
+    }
 
     public DataListFilterPage clickDataListFilter(){
         wait = new WebDriverWait(driver, 10);
@@ -46,12 +53,25 @@ public class HomePage {
         return new SelectDropdownPage(driver);
     }
 
+    public SimpleFormDemoPage clickSimpleFormButton(){
+        wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(SIMPLE_FORM_BUTTON));
+        driver.findElement(SIMPLE_FORM_BUTTON).click();
+        return new SimpleFormDemoPage(driver);
+    }
+
+    public void clickTableButton(){
+        wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(TABLE_BUTTON));
+        driver.findElement(TABLE_BUTTON).click();
+    }
+
     public void clickListBoxButton(){
         wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(LIST_BOX_BUTTON));
         driver.findElement(LIST_BOX_BUTTON).click();
-
     }
+
     public void clickAlertsAndModals(){
         wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(ALERTS_AND_MODALS));
@@ -64,13 +84,6 @@ public class HomePage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(INPUT_FORMS_BUTTON));
         driver.findElement(INPUT_FORMS_BUTTON).click();
 
-    }
-
-    public SimpleFormDemoPage clickSimpleFormButton(){
-        wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(SIMPLE_FORM_BUTTON));
-        driver.findElement(SIMPLE_FORM_BUTTON).click();
-        return new SimpleFormDemoPage(driver);
     }
 
     public void closePopUp(){

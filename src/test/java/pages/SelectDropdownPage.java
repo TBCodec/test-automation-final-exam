@@ -40,6 +40,8 @@ public class SelectDropdownPage {
     }
 
     public String getSelectedDay(){
+        wait = new WebDriverWait(driver,10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(DAY_SELECTED_FIELD));
         return driver.findElement(DAY_SELECTED_FIELD).getText();
     }
 

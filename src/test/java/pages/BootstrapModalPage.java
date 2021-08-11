@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class BootstrapModalPage {
 
     private WebDriver driver;
+    private WebDriverWait wait;
 
     By LAUNCH_MODAL_BUTTON = By.xpath("//a[@href=\"#myModal0\"]");
     By MODAL_TITLE_TEXT_FIELD = By.xpath("//*[@id=\"myModal0\"]//div[@class=\"modal-body\"]");
@@ -18,16 +19,20 @@ public class BootstrapModalPage {
     }
 
     public void clickLauncModalButton(){
+        wait = new WebDriverWait(driver,10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(LAUNCH_MODAL_BUTTON));
         driver.findElement(LAUNCH_MODAL_BUTTON).click();
     }
 
     public String getTextFromModalTitle(){
-        WebDriverWait wait = new WebDriverWait(driver,10);
+        wait = new WebDriverWait(driver,10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(MODAL_TITLE_TEXT_FIELD));
         return driver.findElement(MODAL_TITLE_TEXT_FIELD).getText();
     }
 
     public void clickCloseModalTitle(){
+        wait = new WebDriverWait(driver,10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(CLOSE_MODAL_TITLE));
         driver.findElement(CLOSE_MODAL_TITLE).click();
     }
 

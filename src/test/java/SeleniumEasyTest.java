@@ -24,6 +24,7 @@ public class SeleniumEasyTest {
     {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
@@ -94,7 +95,12 @@ public class SeleniumEasyTest {
     @Test
     public void TestTableContent()
     {
-
+        Utils utils = new Utils(driver);
+        homePage.clickTableButton();
+        DataTableWithDownloadPage dataTableWithDownloadPage = homePage.clickDataTable();
+        List<String> names = dataTableWithDownloadPage.namesInPage();
+        utils.clearTxtFile();
+        utils.sendLineToFile(names);
         /*
          * Navigate to https://www.seleniumeasy.com/test/table-data-download-demo.html page
          * Write test to get names of table.
