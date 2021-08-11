@@ -14,18 +14,32 @@ public class HomePage {
     By INPUT_FORMS_BUTTON = By.xpath("//li[@class='tree-branch']//a[@href='#'][normalize-space()='Input Forms']");
     By SIMPLE_FORM_BUTTON = By.xpath("//li[@class='tree-branch']//a[normalize-space()='Simple Form Demo']");
     By DROPDOWN_LIST_BUTTON = By.xpath("//li[@class='tree-branch']//a[text()='Select Dropdown List']");
-
-
+    By ALERTS_AND_MODALS = By.xpath("//li[@class='tree-branch']//a[normalize-space()='Alerts & Modals']");
+    By BOOTSTRAP_MODALS = By.xpath("//li[@class='tree-branch']//a[normalize-space()='Bootstrap Modals']");
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
 
+
+    public BootstrapModalPage clickBootstrapModal(){
+        wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(BOOTSTRAP_MODALS));
+        driver.findElement(BOOTSTRAP_MODALS).click();
+        return new BootstrapModalPage(driver);
+    }
 
     public SelectDropdownPage clickDropdownButton(){
         wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(DROPDOWN_LIST_BUTTON));
         driver.findElement(DROPDOWN_LIST_BUTTON).click();
         return new SelectDropdownPage(driver);
+    }
+
+    public void clickAlertsAndModals(){
+        wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(ALERTS_AND_MODALS));
+        driver.findElement(ALERTS_AND_MODALS).click();
+
     }
     public void clickInputFormsButton(){
         wait = new WebDriverWait(driver, 10);
@@ -46,5 +60,7 @@ public class HomePage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(POP_UP_CLOSE_BUTTON));
         driver.findElement(POP_UP_CLOSE_BUTTON).click();
     }
+
+
 
 }

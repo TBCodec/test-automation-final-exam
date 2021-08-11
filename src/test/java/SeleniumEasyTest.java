@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import pages.BootstrapModalPage;
 import pages.HomePage;
 import pages.SelectDropdownPage;
 import pages.SimpleFormDemoPage;
@@ -67,19 +68,13 @@ public class SeleniumEasyTest {
     @Test
     public void TestAlertPopUp()
     {
-
-        /*
-         * Navigate to https://www.seleniumeasy.com/test/bootstrap-modal-demo.html# page
-         * Write test to read and validate content text of modal alert window.
-         * Launch a single modal window, store the content string into result variable and close the window with close button.
-         * Use the given variables to achieve successfully running test.
-         * */
-
-
-        String result = "";
-        String expected = "";
-
+        homePage.clickAlertsAndModals();
+        BootstrapModalPage bootstrapModalPage = homePage.clickBootstrapModal();
+        bootstrapModalPage.clickLauncModalButton();
+        String result = bootstrapModalPage.getTextFromModalTitle();
+        String expected = "This is the place where the content for the modal dialog displays";
         Assertions.assertTrue(result.contains(expected));
+        bootstrapModalPage.clickCloseModalTitle();
     }
 
     @Test
