@@ -1,57 +1,64 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import pages.HomePage;
+import pages.SelectDropdownPage;
+import pages.SimpleFormDemoPage;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class SeleniumEasyTest {
 
-    WebDriver driver;
+    private WebDriver driver;
+    private HomePage homePage;
 
     @BeforeEach
     public void Setup()
     {
-        //Driver initialization, use WebDriverManager with update maven configuration
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        driver = new ChromeDriver(options);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
+        driver.get("https://www.seleniumeasy.com/test/");
+        homePage = new HomePage(driver);
+        homePage.closePopUp();
     }
 
 
     @Test
     public void TestTwoInputs()
     {
-
-        /*
-         * Navigate to https://www.seleniumeasy.com/test/basic-first-form-demo.html page
-         * Write test to validate two inputs section of the page with entering two numbers and validation of summary.
-         * Use custom test data.
-         * Use the given variables.
-         * */
-
-        Integer result = 0;
-        Integer expected = 0;
-
+        String numberA = "5";
+        String numberB = "4";
+        homePage.clickInputFormsButton();
+        SimpleFormDemoPage simpleFormDemoPage = homePage.clickSimpleFormButton();
+        simpleFormDemoPage.typeABField(numberA, numberB);
+        simpleFormDemoPage.clickGetTotalButton();
+        Integer result = simpleFormDemoPage.getTotal();
+        Integer expected = 9;
         Assertions.assertEquals(expected, result);
     }
 
     @Test
     public void TestDaySelectionList()
     {
-
-        /*
-         * Navigate to https://www.seleniumeasy.com/test/basic-select-dropdown-demo.html page
-         * Write test to select list section of the page with selecting an arbitrary day and validation of selection on ser interface.
-         * Use custom test data.
-         * Use the given variables.
-         * */
-
-        String result = "";
-        String expected = "";
-
+        String selectDay = "Monday";
+        homePage.clickInputFormsButton();
+        SelectDropdownPage selectDropdownPage = homePage.clickDropdownButton();
+        selectDropdownPage.clickSelectDayButton();
+        selectDropdownPage.selectFromList(selectDay);
+        String expected = "Day selected :- " + selectDay;
+        String result = selectDropdownPage.getSelectedDay();
         Assertions.assertEquals(expected, result);
     }
 
@@ -126,7 +133,7 @@ public class SeleniumEasyTest {
     @AfterEach
     public void Close()
     {
-        //Driver dispose
+        driver.quit();
     }
 
 
